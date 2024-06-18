@@ -4,38 +4,58 @@ import com.example.MobileShop.Cart.Cart;
 import com.example.MobileShop.Order.Order;
 import com.example.MobileShop.Review.Review;
 import com.example.MobileShop.UserRoles.UserRoles;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
 import jakarta.persistence.*;
+import org.hibernate.annotations.Type;
 
 import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
 
+@Table(name = "User")
 @Entity
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue
     private UUID userId;
 
+    @Column(name = "user_name")
     private String userName;
+
+    @Column(name = "email")
     private String email;
+
+    @Column(name = "password")
+    @JsonIgnore
     private String password;
+
+    @Column(name = "refresh_token")
     private String refresh_token;
+
+    @Column(name = "created_at")
     private Date created_at;
+
+    @Column(name = "updated_at")
     private Date updated_at;
 
-    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Order> orders;
 
-    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Address> addresses;
 
-    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Cart> carts;
 
-    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<UserRoles> userRoles;
 
-    @OneToMany(mappedBy = "user")
+    @JsonIgnore
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Review> reviews;
 
     //getter and setter

@@ -3,14 +3,14 @@ package com.example.MobileShop.Review;
 import com.example.MobileShop.CommonDetailProduct.CommonDetailProduct;
 import com.example.MobileShop.User.User;
 import jakarta.persistence.*;
-
 import java.util.Date;
 import java.util.UUID;
 
+@Table(name = "Review")
 @Entity
 public class Review {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID reviewId;
 
     @ManyToOne
@@ -21,10 +21,19 @@ public class Review {
     @JoinColumn(name = "common_detail_product_id")
     private CommonDetailProduct commonDetailProduct;
 
+    @Column(name = "comment")
     private String comment;
-    private int star;
+
+    @Column(name = "star")
+    private float star;
+
+    @Column(name = "review_date")
     private Date review_date;
+
+    @Column(name = "created_at")
     private Date created_at;
+
+    @Column(name = "updated_at")
     private Date updated_at;
 
     // Getters and setters
@@ -60,7 +69,7 @@ public class Review {
         this.comment = comment;
     }
 
-    public int getStar() {
+    public float getStar() {
         return star;
     }
 

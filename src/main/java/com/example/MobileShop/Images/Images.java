@@ -5,18 +5,23 @@ import jakarta.persistence.*;
 import java.util.Date;
 import java.util.UUID;
 
-
+@Table(name = "Images")
 @Entity
 public class Images {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID imageId;
 
+    @Column(name = "url")
     private String url;
+
+    @Column(name ="created_at")
     private Date created_at;
+
+    @Column(name ="updated_at")
     private Date updated_at;
 
-    @OneToOne(mappedBy = "images")
+    @OneToOne(mappedBy = "images",cascade = CascadeType.ALL)
     private CommonDetailProduct commonDetailProduct;
 
     // Constructors, getters, and setters

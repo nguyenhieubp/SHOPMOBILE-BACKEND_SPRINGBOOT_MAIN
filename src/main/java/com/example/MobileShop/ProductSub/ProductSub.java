@@ -6,15 +6,23 @@ import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
 
+@Table(name = "ProductSub")
 @Entity
 public class ProductSub {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID productSubId;
 
+    @Column(name = "product_key")
     private String key;
+
+    @Column(name = "value")
     private String value;
+
+    @Column(name = "created_at")
     private Date created_at;
+
+    @Column(name = "updated_at")
     private Date updated_at;
 
     @OneToMany(mappedBy = "sub")

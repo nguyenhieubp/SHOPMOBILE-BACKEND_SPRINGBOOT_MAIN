@@ -8,9 +8,10 @@ import java.util.Set;
 import java.util.UUID;
 
 @Entity
+@Table(name = "orders")
 public class Order {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID orderId;
 
     @ManyToOne
@@ -20,8 +21,13 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<OrderDetail> orderDetails;
 
+    @Column(name = "order_date")
     private Date order_date;
+
+    @Column(name = "status")
     private boolean status;
+
+    @Column(name = "address_id")
     private UUID address_id;
 
     // Getters and setters

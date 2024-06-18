@@ -5,28 +5,52 @@ import jakarta.persistence.*;
 import java.util.Date;
 import java.util.UUID;
 
-
+@Table(name = "PhoneVariable")
 @Entity
 public class PhoneVariable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID phoneItemId;
 
-    @OneToOne(mappedBy = "phoneVariable", cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "common_product_id")
     private CommonDetailProduct commonDetailProduct;
 
+    @Column(name = "color")
     private String color;
+
+
+    @Column(name = "ram")
     private String ram;
+
+    @Column(name = "rom")
     private String rom;
+
+    @Column(name = "disk")
     private String disk;
+
+    @Column(name = "internal_storage")
     private String internal_storage;
+
+    @Column(name = "release_date")
     private String release_date;
+
+    @Column(name = "battery_capacity")
     private double battery_capacity;
+
+    @Column(name = "camera")
     private String camera;
+
+    @Column(name = "phone_id")
     private UUID phone_id;
+
+    @Column(name = "is_show")
     private boolean is_show;
+
+    @Column(name = "created_at")
     private Date created_at;
+
+    @Column(name = "updated_at")
     private Date updated_at;
 
     // Getters and setters

@@ -1,16 +1,16 @@
 package com.example.MobileShop.Cart;
 
-import com.example.MobileShop.CommonDetailProduct.CommonDetailProduct;
 import com.example.MobileShop.User.User;
 import jakarta.persistence.*;
 import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
 
+@Table(name = "Carts")
 @Entity
 public class Cart {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID cartId;
 
     @ManyToOne
@@ -18,14 +18,22 @@ public class Cart {
     private User user;
 
     // add product
+    @Column(name = "product_item_id")
     private UUID product_item_id;
+
+    @Column(name = "quantity")
     private int quantity;
+
+    @Column(name = "price")
     private float price;
+
+    @Column(name = "created_at")
     private Date created_at;
+
+    @Column(name = "updated_at")
     private Date updated_at;
 
     // Getters and setters
-
     public UUID getCartId() {
         return cartId;
     }

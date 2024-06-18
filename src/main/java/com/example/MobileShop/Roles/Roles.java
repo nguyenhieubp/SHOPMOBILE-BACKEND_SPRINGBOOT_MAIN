@@ -1,28 +1,39 @@
 package com.example.MobileShop.Roles;
 
 import com.example.MobileShop.UserRoles.UserRoles;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
 
+@Table(name = "Roles")
 @Entity
 public class Roles {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @UuidGenerator(style = UuidGenerator.Style.RANDOM)
     private UUID roleId;
 
+
+    @Column(name = "name_role")
     private String nameRole;
+
+    @Column(name = "role_code")
     private String roleCode;
+
+    @Column(name = "created_at")
     private Date created_at;
+
+    @Column(name = "updated_at")
     private Date updated_at;
 
     @OneToMany(mappedBy = "role")
+    @JsonIgnore
     private Set<UserRoles> userRoles;
 
     // Getters and setters
-
     public UUID getRoleId() {
         return roleId;
     }

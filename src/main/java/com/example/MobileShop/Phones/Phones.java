@@ -5,25 +5,37 @@ import jakarta.persistence.*;
 import java.util.Date;
 import java.util.UUID;
 
+@Table(name = "Phones")
 @Entity
 public class Phones {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID phoneId;
 
-    @OneToOne(mappedBy = "phones", cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "common_detail_product_id")
     private CommonDetailProduct commonDetailProduct;
 
+
+    @Column(name = "operating_system")
     private String operating_system;
+
+    @Column(name = "phone_type")
     private String phone_type;
+
+    @Column(name = "phone_name")
     private String phone_name;
+
+    @Column(name = "is_show")
     private boolean is_show;
+
+    @Column(name = "created_at")
     private Date created_at;
+
+    @Column(name = "updated_at")
     private Date updated_at;
 
     // Getters and setters
-
     public UUID getPhoneId() {
         return phoneId;
     }

@@ -1,25 +1,37 @@
 package com.example.MobileShop.OrderDetail;
-import com.example.MobileShop.Order.Order;
 
+import com.example.MobileShop.Order.Order;
 import jakarta.persistence.*;
 import java.util.Date;
 import java.util.UUID;
 
+@Table(name = "OrderDetail")
 @Entity
 public class OrderDetail {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID orderDetailId;
 
     @ManyToOne
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
+    @Column(name = "phone_number")
     private String phone_number;
+
+    @Column(name = "quantity")
     private int quantity;
+
+    @Column(name = "total_price")
     private float total_price;
+
+    @Column(name = "order_item_id")
     private UUID order_item_id;
+
+    @Column(name = "created_at")
     private Date created_at;
+
+    @Column(name = "updated_at")
     private Date updated_at;
 
     // Getters and setters

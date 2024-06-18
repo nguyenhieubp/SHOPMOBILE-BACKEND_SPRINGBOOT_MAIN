@@ -2,19 +2,24 @@ package com.example.MobileShop.ProductType;
 
 import com.example.MobileShop.CommonDetailProduct.CommonDetailProduct;
 import jakarta.persistence.*;
-
 import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
 
+@Table(name = "ProductType")
 @Entity
 public class ProductType {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID productTypeId;
 
+    @Column(name = "tag")
     private String tag;
+
+    @Column(name = "created_at")
     private Date created_at;
+
+    @Column(name = "updated_at")
     private Date updated_at;
 
     @OneToMany(mappedBy = "type")

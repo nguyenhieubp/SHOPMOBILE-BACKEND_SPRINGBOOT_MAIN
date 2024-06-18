@@ -1,15 +1,16 @@
 package com.example.MobileShop.UserRoles;
+
 import com.example.MobileShop.Roles.Roles;
 import com.example.MobileShop.User.User;
 import jakarta.persistence.*;
-
 import java.util.Date;
 import java.util.UUID;
 
+@Table(name = "UserRoles")
 @Entity
 public class UserRoles {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID userRoleId;
 
     @ManyToOne
@@ -20,7 +21,10 @@ public class UserRoles {
     @JoinColumn(name = "role_id")
     private Roles role;
 
+    @Column(name = "created_at")
     private Date created_at;
+
+    @Column(name = "updated_at")
     private Date updated_at;
 
     // Getters and setters

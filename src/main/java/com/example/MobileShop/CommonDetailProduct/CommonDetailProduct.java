@@ -12,20 +12,38 @@ import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
 
+@Table(name = "CommonDetailProduct")
 @Entity
 public class CommonDetailProduct {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID commonProductId;
 
+    @Column(name = "title")
     private String title;
+
+    @Column(name = "price")
     private float price;
-    private String desc;
+
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "quantity_of_goods")
     private int quantity_of_goods;
+
+    @Column(name = "warranty")
     private int warranty;
+
+    @Column(name = "product_type_id")
     private UUID product_type_id;
+
+    @Column(name = "categories_id")
     private UUID categories_id;
+
+    @Column(name = "created_at")
     private Date created_at;
+
+    @Column(name = "updated_at")
     private Date updated_at;
 
     //ok
@@ -33,15 +51,15 @@ public class CommonDetailProduct {
     private PhoneVariable phoneVariable;
 
     //ok
-    @OneToOne(mappedBy = "phones", cascade = CascadeType.ALL)
-    private Phones Phones;
+    @OneToOne(mappedBy = "commonDetailProduct", cascade = CascadeType.ALL)
+    private Phones phones;
 
     // OK
     @OneToMany(mappedBy = "commonDetailProduct", cascade = CascadeType.ALL)
     private Set<Review> reviews;
 
     // OK
-    @OneToOne(mappedBy = "commonDetailProduct", cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "image_id")
     private Images images;
 
@@ -86,11 +104,11 @@ public class CommonDetailProduct {
     }
 
     public String getDesc() {
-        return desc;
+        return description;
     }
 
     public void setDesc(String desc) {
-        this.desc = desc;
+        this.description = desc;
     }
 
     public int getQuantity_of_goods() {

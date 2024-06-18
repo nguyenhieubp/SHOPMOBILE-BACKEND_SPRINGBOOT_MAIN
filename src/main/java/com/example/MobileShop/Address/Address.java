@@ -7,25 +7,36 @@ import jakarta.persistence.*;
 import java.util.Date;
 import java.util.UUID;
 
+@Table(name = "Address")
 @Entity
 public class Address {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID addressId;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
+    @Column(name = "city")
     private String city;
+
+    @Column(name = "district")
     private String district;
+
+    @Column(name = "wards")
     private String wards;
+
+    @Column(name = "address")
     private String address;
+
+    @Column(name = "created_at")
     private Date created_at;
+
+    @Column(name = "updated_at")
     private Date updated_at;
 
     // Getters and setters
-
     public UUID getAddressId() {
         return addressId;
     }

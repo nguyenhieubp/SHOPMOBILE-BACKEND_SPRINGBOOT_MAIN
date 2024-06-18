@@ -2,20 +2,27 @@ package com.example.MobileShop.Categories;
 
 import com.example.MobileShop.CommonDetailProduct.CommonDetailProduct;
 import jakarta.persistence.*;
-
 import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
 
+@Table(name = "Categories")
 @Entity
 public class Categories {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID categoryId;
 
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "parent_id")
     private UUID parent_id;
+
+    @Column(name = "created_at")
     private Date created_at;
+
+    @Column(name = "updated_at")
     private Date updated_at;
 
     @OneToMany(mappedBy = "category")
