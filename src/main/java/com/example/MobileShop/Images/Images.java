@@ -16,10 +16,10 @@ public class Images {
     private String url;
 
     @Column(name ="created_at")
-    private Date created_at;
+    private Date created_at = new Date();
 
     @Column(name ="updated_at")
-    private Date updated_at;
+    private Date updated_at = new Date();
 
     @OneToOne(mappedBy = "images",cascade = CascadeType.ALL)
     private CommonDetailProduct commonDetailProduct;

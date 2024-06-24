@@ -13,7 +13,7 @@ public class UserRoles {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID userRoleId;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -66,6 +66,18 @@ public class UserRoles {
 
     public void setUpdated_at(Date updated_at) {
         this.updated_at = updated_at;
+    }
+
+
+    @Override
+    public String toString() {
+        return "UserRoles{" +
+                "userRoleId=" + userRoleId +
+                ", user=" + user +
+                ", role=" + role +
+                ", created_at=" + created_at +
+                ", updated_at=" + updated_at +
+                '}';
     }
 }
 

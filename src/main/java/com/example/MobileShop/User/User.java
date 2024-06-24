@@ -5,31 +5,34 @@ import com.example.MobileShop.Order.Order;
 import com.example.MobileShop.Review.Review;
 import com.example.MobileShop.UserRoles.UserRoles;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
 import jakarta.persistence.*;
-import org.hibernate.annotations.Type;
+import org.apache.logging.log4j.util.Lazy;
+import org.hibernate.validator.constraints.UniqueElements;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Date;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 @Table(name = "User")
 @Entity
-public class User {
+public class User implements UserDetails  {
     @Id @GeneratedValue
     private UUID userId;
 
     @Column(name = "user_name")
     private String userName;
 
-    @Column(name = "email")
+    @Column(name = "email",unique = true)
     private String email;
 
     @Column(name = "password")
     @JsonIgnore
     private String password;
 
+
     @Column(name = "refresh_token")
+    @JsonIgnore
     private String refresh_token;
 
     @Column(name = "created_at")
@@ -38,28 +41,25 @@ public class User {
     @Column(name = "updated_at")
     private Date updated_at;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Order> orders;
 
-    @JsonIgnore
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Address> addresses;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Cart> carts;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private Set<UserRoles> userRoles;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.LAZY)
     private Set<Review> reviews;
 
     //getter and setter
-
     public UUID getUserId() {
         return userId;
     }
@@ -84,13 +84,6 @@ public class User {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public String getRefresh_token() {
         return refresh_token;
@@ -154,5 +147,74 @@ public class User {
 
     public void setReviews(Set<Review> reviews) {
         this.reviews = reviews;
+    }
+
+
+    @Override
+    @JsonIgnore
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Set<GrantedAuthority> authorities = new HashSet<>();
+        for (UserRoles userRole : userRoles) {
+            authorities.add(new SimpleGrantedAuthority(userRole.getRole().getNameRole()));
+        }
+        return authorities;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    @JsonIgnore
+    public String getUsername() {
+        return email;
+    }
+
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
+    @Override
+    @JsonIgnore
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    @JsonIgnore
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    @JsonIgnore
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    @JsonIgnore
+    public boolean isEnabled() {
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", userName='" + userName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", refresh_token='" + refresh_token + '\'' +
+                ", created_at=" + created_at +
+                ", updated_at=" + updated_at +
+                ", orders=" + orders +
+                ", addresses=" + addresses +
+                ", carts=" + carts +
+                ", userRoles=" + userRoles +
+                ", reviews=" + reviews +
+                '}';
     }
 }

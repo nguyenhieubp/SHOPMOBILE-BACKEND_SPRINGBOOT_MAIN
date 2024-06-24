@@ -1,6 +1,7 @@
 package com.example.MobileShop.Categories;
 
 import com.example.MobileShop.CommonDetailProduct.CommonDetailProduct;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.Date;
 import java.util.Set;
@@ -20,12 +21,13 @@ public class Categories {
     private UUID parent_id;
 
     @Column(name = "created_at")
-    private Date created_at;
+    private Date created_at = new Date();
 
     @Column(name = "updated_at")
-    private Date updated_at;
+    private Date updated_at = new Date();
 
     @OneToMany(mappedBy = "category")
+    @JsonIgnore
     private Set<CommonDetailProduct> products;
 
     // Getters and setters

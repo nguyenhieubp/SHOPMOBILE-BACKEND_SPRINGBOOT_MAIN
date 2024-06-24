@@ -1,6 +1,7 @@
 package com.example.MobileShop.ProductType;
 
 import com.example.MobileShop.CommonDetailProduct.CommonDetailProduct;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.Date;
 import java.util.Set;
@@ -17,11 +18,12 @@ public class ProductType {
     private String tag;
 
     @Column(name = "created_at")
-    private Date created_at;
+    private Date created_at = new Date();
 
     @Column(name = "updated_at")
-    private Date updated_at;
+    private Date updated_at = new Date();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "type")
     private Set<CommonDetailProduct> products;
 
