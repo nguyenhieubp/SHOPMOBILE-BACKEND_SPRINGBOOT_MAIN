@@ -14,4 +14,8 @@ public interface CategoriesRepository extends JpaRepository<Categories, UUID> {
 
     @Query("SELECT c FROM Categories c WHERE c.parent_id is NULL")
     List<Categories> getAllCategoryParent();
+
+    @Query("SELECT c FROM Categories c WHERE c.name = :q")
+    Categories getAllCategoryByName(@Param("q") String name);
+
 }

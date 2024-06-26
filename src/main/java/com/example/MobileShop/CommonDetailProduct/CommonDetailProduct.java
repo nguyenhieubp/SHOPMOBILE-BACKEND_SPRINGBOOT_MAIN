@@ -7,6 +7,7 @@ import com.example.MobileShop.PhoneVariable.PhoneVariable;
 import com.example.MobileShop.ProductSub.ProductSub;
 import com.example.MobileShop.ProductType.ProductType;
 import com.example.MobileShop.Review.Review;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import java.util.Date;

@@ -1,7 +1,10 @@
 package com.example.MobileShop.ProductSub;
 
+import com.example.MobileShop.CommonDetailProduct.CommonDetailProduct;
 import com.example.MobileShop.Config.FormatResponse.ApiResponse;
 import com.example.MobileShop.ProductSub.Request.ProductSubDto;
+import com.example.MobileShop.ProductSub.Request.RequestIdProductDetail;
+import com.example.MobileShop.ProductSub.Response.ResponseProductSub;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -50,6 +53,17 @@ public class ProductSubController {
     }
 
 
+    @PatchMapping("/set/{id}/product-detail")
+    public ResponseEntity<?> setProductDetailForProductSub(@PathVariable UUID id,@RequestBody RequestIdProductDetail productDetail){
+        ApiResponse<ResponseProductSub> response = new ApiResponse<>(HttpStatus.OK.value(), "success",productSubService.setProductDetailForProductSub(id,productDetail));
+        return ResponseEntity.ok().body(response);
+    }
 
+
+    @GetMapping("/getAll/{id}/product-sub")
+    public ResponseEntity<?> setProductDetailForProductSub(@PathVariable UUID id){
+        ApiResponse<List<ProductSubDto>> response = new ApiResponse<>(HttpStatus.OK.value(), "success",productSubService.getAllProductSubByDetailProduct(id));
+        return ResponseEntity.ok().body(response);
+    }
 
 }

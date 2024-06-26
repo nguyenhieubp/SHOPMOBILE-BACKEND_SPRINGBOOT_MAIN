@@ -67,6 +67,7 @@ public class AuthService {
     public Optional<LoginResponse> refreshAccessToken(String refreshToken) {
         if (jwtService.isRefreshTokenValid(refreshToken)) {
             String username = jwtService.extractUsername(refreshToken);
+            System.out.println("Name "+username);
             User user = userRepository.findByEmail(username)
                     .orElseThrow(() -> new RuntimeException("User not found!"));
 

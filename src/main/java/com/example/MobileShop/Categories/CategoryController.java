@@ -38,6 +38,12 @@ public class CategoryController {
         return ResponseEntity.ok().body(response);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getCategoryById(@PathVariable UUID id){
+        ApiResponse<Categories> response = new ApiResponse<>(HttpStatus.OK.value(),"success",categoryService.getCategoryById(id));
+        return ResponseEntity.ok().body(response);
+    }
+
     @PatchMapping("/update-name/{id}")
     public ResponseEntity<?> updateName(@PathVariable UUID id,@RequestBody RequestCategoryChangeName name){
         ApiResponse<Categories> response = new ApiResponse<>(HttpStatus.OK.value(),"success",categoryService.updateNameCategory(id,name));
@@ -48,6 +54,12 @@ public class CategoryController {
     @GetMapping("/getAll/category-parent")
     public ResponseEntity<?> getAllCategoryParent(){
         ApiResponse<List<Categories>> response = new ApiResponse<>(HttpStatus.OK.value(),"success",categoryService.getAllCategoryParent());
+        return ResponseEntity.ok().body(response);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<?> getAllCategoryByName(@RequestParam String q){
+        ApiResponse<Categories> response = new ApiResponse<>(HttpStatus.OK.value(),"success",categoryService.getAllCategoryByName(q));
         return ResponseEntity.ok().body(response);
     }
 
@@ -75,5 +87,4 @@ public class CategoryController {
         ApiResponse<Boolean> response = new ApiResponse<>(HttpStatus.OK.value(),"success",categoryService.deleteCategory(id));
         return ResponseEntity.ok().body(response);
     }
-
 }

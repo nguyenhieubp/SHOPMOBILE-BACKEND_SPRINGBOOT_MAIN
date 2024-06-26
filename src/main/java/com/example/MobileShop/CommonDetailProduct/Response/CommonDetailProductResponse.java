@@ -7,6 +7,7 @@ import com.example.MobileShop.ProductType.ProductType;
 import jakarta.persistence.Column;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 public class CommonDetailProductResponse {
@@ -33,6 +34,8 @@ public class CommonDetailProductResponse {
     private Categories category;
 
     private ProductType type;
+
+    private List<ProductSub> subs;
 
     public UUID getCommonProductId() {
         return commonProductId;
@@ -130,6 +133,14 @@ public class CommonDetailProductResponse {
         this.code = code;
     }
 
+    public List<ProductSub> getSubs() {
+        return subs;
+    }
+
+    public void setSubs(List<ProductSub> subs) {
+        this.subs = subs;
+    }
+
     @Override
     public String toString() {
         return "CommonDetailProductResponse{" +
@@ -145,6 +156,7 @@ public class CommonDetailProductResponse {
                 ", images=" + images +
                 ", category=" + category +
                 ", type=" + type +
+                ", subs=" + subs +
                 '}';
     }
 }

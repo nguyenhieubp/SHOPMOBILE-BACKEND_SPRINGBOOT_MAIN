@@ -3,7 +3,6 @@ package com.example.MobileShop.CommonDetailProduct;
 import com.example.MobileShop.CommonDetailProduct.Request.CommonDetailProductRequest;
 import com.example.MobileShop.CommonDetailProduct.Response.CommonDetailProductResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -53,4 +52,14 @@ public class CommonDetailProductController {
         return ResponseEntity.ok("DELETE SUCCESS");
     }
 
+
+    @GetMapping("/search")
+    public List<CommonDetailProductResponse> searchProducts(
+            @RequestParam(required = false) String category,
+            @RequestParam(required = false) String type,
+            @RequestParam(required = false, defaultValue = "asc") String sort) {
+        String sortDirection = sort.equalsIgnoreCase("desc") ? "DESC" : "ASC";
+        List<CommonDetailProductResponse> products = commonDetailProductService.searchProducts(category, type, sortDirection);
+        return products;
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.MobileShop.ProductSub;
 
 import com.example.MobileShop.CommonDetailProduct.CommonDetailProduct;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.Date;
 import java.util.Set;
@@ -25,6 +26,8 @@ public class ProductSub {
     @Column(name = "updated_at")
     private Date updated_at = new Date();
 
+
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "common_detail_product_id")
     private CommonDetailProduct commonDetailProduct;

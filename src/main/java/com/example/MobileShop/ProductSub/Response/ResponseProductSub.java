@@ -1,5 +1,7 @@
 package com.example.MobileShop.ProductSub.Response;
 
+import com.example.MobileShop.CommonDetailProduct.CommonDetailProduct;
+
 import java.util.Date;
 import java.util.UUID;
 
@@ -9,6 +11,8 @@ public class ResponseProductSub {
     private String key;
 
     private String value;
+
+    private CommonDetailProduct commonDetailProduct;
 
     private Date created_at = new Date();
 
@@ -54,12 +58,21 @@ public class ResponseProductSub {
         this.updated_at = updated_at;
     }
 
+    public CommonDetailProduct getCommonDetailProduct() {
+        return commonDetailProduct;
+    }
+
+    public void setCommonDetailProduct(CommonDetailProduct commonDetailProduct) {
+        this.commonDetailProduct = commonDetailProduct;
+    }
+
     @Override
     public String toString() {
         return "ResponseProductSub{" +
                 "productSubId=" + productSubId +
                 ", key='" + key + '\'' +
                 ", value='" + value + '\'' +
+                ", commonDetailProduct=" + commonDetailProduct +
                 ", created_at=" + created_at +
                 ", updated_at=" + updated_at +
                 '}';

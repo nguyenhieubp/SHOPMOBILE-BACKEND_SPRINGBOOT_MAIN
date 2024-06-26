@@ -1,7 +1,11 @@
 package com.example.MobileShop.ProductSub;
 
+import com.example.MobileShop.CommonDetailProduct.CommonDetailProduct;
+import com.example.MobileShop.CommonDetailProduct.CommonDetailProductRepository;
 import com.example.MobileShop.Exception.ResourceNotFoundException;
 import com.example.MobileShop.ProductSub.Request.ProductSubDto;
+import com.example.MobileShop.ProductSub.Request.RequestIdProductDetail;
+import com.example.MobileShop.ProductSub.Response.ResponseProductSub;
 import com.google.api.gax.rpc.NotFoundException;
 import com.google.common.reflect.TypeToken;
 import org.modelmapper.ModelMapper;
@@ -17,6 +21,9 @@ import java.util.UUID;
 public class ProductSubService {
     @Autowired
     private ProductSubRepository productSubRepository;
+
+    @Autowired
+    private CommonDetailProductRepository commonDetailProductRepository;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -58,4 +65,23 @@ public class ProductSubService {
         productSubRepository.delete(productSub);
         return true;
     }
+
+
+    public ResponseProductSub setProductDetailForProductSub(UUID id, RequestIdProductDetail productDetail) {
+        ProductSub productSub =  productSubRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Not have "+id));
+        CommonDetailProduct commonDetailProduct = commonDetailProductRepository.findById(productDetail.getProductDetailId()).orElseThrow();
+        productSub.setCommonDetailProduct(commonDetailProduct);
+        productSubRepository.save(productSub);
+        return modelMapper.map(productSub,ResponseProductSub.class);
+    }
+
+
+    public List<ProductSubDto> getAllProductSubByDetailProduct(UUID id) {
+        List<ProductSub> productSubs  = productSubRepository.getAllProductSubByDetailProduct(id);
+        Type listType = new TypeToken<List<ProductSubDto>>(){}.getType();
+        List<ProductSubDto> postDtoList = modelMapper.map(productSubs,listType);
+        return postDtoList;
+    }
+
+
 }

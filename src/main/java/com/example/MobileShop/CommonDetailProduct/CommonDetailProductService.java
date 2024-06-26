@@ -14,6 +14,7 @@ import com.example.MobileShop.ProductType.ProductTypeRepository;
 import com.google.common.reflect.TypeToken;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
@@ -126,5 +127,10 @@ public class CommonDetailProductService {
         return products.stream()
                 .map(product -> modelMapper.map(product, CommonDetailProductResponse.class))
                 .collect(Collectors.toList());
+    }
+
+    public List<CommonDetailProductResponse> searchProducts(String category, String type, String sortDirection) {
+        Sort sort = Sort.by(Sort.Direction.fromString(sortDirection), "price");
+        return mapToResponseList((commonDetailProductRepository.searchProducts(sort,category, type)));
     }
 }

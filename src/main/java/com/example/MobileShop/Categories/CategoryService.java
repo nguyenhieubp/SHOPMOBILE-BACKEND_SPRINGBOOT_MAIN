@@ -2,6 +2,7 @@ package com.example.MobileShop.Categories;
 
 import com.example.MobileShop.Categories.Resquest.RequestCategoryChangeName;
 import com.example.MobileShop.Categories.Resquest.RequestSetParentCategory;
+import com.example.MobileShop.Exception.ResourceNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,10 @@ public class CategoryService {
         return categories;
     }
 
+    public Categories getCategoryById(UUID categoryId){
+        return categoriesRepository.findById(categoryId).orElseThrow(() -> new ResourceNotFoundException("Not have category "+categoryId));
+    }
+
 
     public Categories setNullParentCategoryById(UUID categoryId){
         Categories category = categoriesRepository.findById(categoryId).orElseThrow();
@@ -49,6 +54,11 @@ public class CategoryService {
 
     public List<Categories> getAllCategoryParent(){
         List<Categories> categories = categoriesRepository.getAllCategoryParent();
+        return categories;
+    }
+
+    public Categories getAllCategoryByName(String q){
+        Categories categories = categoriesRepository.getAllCategoryByName(q);
         return categories;
     }
 
@@ -72,4 +82,6 @@ public class CategoryService {
         categoriesRepository.delete(category);
         return true;
     }
+
+
 }

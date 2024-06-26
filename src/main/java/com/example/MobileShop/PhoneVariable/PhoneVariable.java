@@ -19,7 +19,6 @@ public class PhoneVariable {
     @Column(name = "color")
     private String color;
 
-
     @Column(name = "ram")
     private String ram;
 

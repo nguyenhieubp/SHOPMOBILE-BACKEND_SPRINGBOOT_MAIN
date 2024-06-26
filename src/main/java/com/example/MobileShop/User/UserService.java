@@ -35,15 +35,17 @@ public class UserService {
     public User getUserById(UUID id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
-        return null;
+        return user;
     }
 
     public User updateUser(UUID id,UserDto useUpdate) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id " + id));
 
-        User userUpdate = modelMapper.map(useUpdate, User.class);
-        userRepository.save(userUpdate);
-        return userUpdate;
+        user.setUserName(useUpdate.getUserName());
+        user.setEmail(useUpdate.getEmail());
+        user.setPassword(useUpdate.getPassword());
+        userRepository.save(user);
+        return user;
     }
 }

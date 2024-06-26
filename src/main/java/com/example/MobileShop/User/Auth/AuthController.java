@@ -53,6 +53,7 @@ public class AuthController {
     @PostMapping("/refresh-token")
     public ResponseEntity<?> refreshAccessToken(@RequestBody TokenRefreshRequest request) {
         String requestRefreshToken = request.getRefreshToken();
+        System.out.println("TOKEN "+requestRefreshToken);
         return authService.refreshAccessToken(requestRefreshToken)
                 .map(tokenResponse -> ResponseEntity.ok().body(tokenResponse))
                 .orElseThrow(() -> new RuntimeException("Refresh token is not valid!"));
