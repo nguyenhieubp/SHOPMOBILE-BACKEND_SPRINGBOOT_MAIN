@@ -62,4 +62,10 @@ public class CommonDetailProductController {
         List<CommonDetailProductResponse> products = commonDetailProductService.searchProducts(category, type, sortDirection);
         return products;
     }
+
+
+    @GetMapping("/getForMobile")
+    public List<CommonDetailProductResponse> getAll (){
+
+    }
 }

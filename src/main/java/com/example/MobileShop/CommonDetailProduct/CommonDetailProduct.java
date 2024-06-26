@@ -46,9 +46,11 @@ public class CommonDetailProduct {
     @Column(name = "updated_at")
     private Date updated_at;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "commonDetailProduct", cascade = CascadeType.ALL)
     private PhoneVariable phoneVariable;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "commonDetailProduct", cascade = CascadeType.ALL)
     private Phones phones;
 

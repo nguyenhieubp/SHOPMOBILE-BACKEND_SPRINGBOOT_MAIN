@@ -1,6 +1,7 @@
 package com.example.MobileShop.PhoneVariable;
 
 import com.example.MobileShop.CommonDetailProduct.CommonDetailProduct;
+import com.example.MobileShop.Phones.Phones;
 import jakarta.persistence.*;
 import java.util.Date;
 import java.util.UUID;
@@ -10,11 +11,15 @@ import java.util.UUID;
 public class PhoneVariable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID phoneItemId;
+    private UUID phoneVariableId;
 
     @OneToOne
     @JoinColumn(name = "common_product_id")
     private CommonDetailProduct commonDetailProduct;
+
+    @ManyToOne
+    @JoinColumn(name = "phone_main_id")
+    private Phones phone;
 
     @Column(name = "color")
     private String color;
@@ -53,12 +58,20 @@ public class PhoneVariable {
     private Date updated_at;
 
     // Getters and setters
-    public UUID getPhoneItemId() {
-        return phoneItemId;
+    public UUID getPhoneVariableId() {
+        return phoneVariableId;
     }
 
-    public void setPhoneItemId(UUID phoneItemId) {
-        this.phoneItemId = phoneItemId;
+    public void setPhoneVariableId(UUID phoneVariableId) {
+        this.phoneVariableId = phoneVariableId;
+    }
+
+    public Phones getPhone() {
+        return phone;
+    }
+
+    public void setPhone(Phones phone) {
+        this.phone = phone;
     }
 
     public CommonDetailProduct getCommonDetailProduct() {
@@ -163,5 +176,26 @@ public class PhoneVariable {
 
     public void setUpdated_at(Date updated_at) {
         this.updated_at = updated_at;
+    }
+
+    @Override
+    public String toString() {
+        return "PhoneVariable{" +
+                "phoneVariableId=" + phoneVariableId +
+                ", commonDetailProduct=" + commonDetailProduct +
+                ", phone=" + phone +
+                ", color='" + color + '\'' +
+                ", ram='" + ram + '\'' +
+                ", rom='" + rom + '\'' +
+                ", disk='" + disk + '\'' +
+                ", internal_storage='" + internal_storage + '\'' +
+                ", release_date='" + release_date + '\'' +
+                ", battery_capacity=" + battery_capacity +
+                ", camera='" + camera + '\'' +
+                ", phone_id=" + phone_id +
+                ", is_show=" + is_show +
+                ", created_at=" + created_at +
+                ", updated_at=" + updated_at +
+                '}';
     }
 }

@@ -7,7 +7,6 @@ import java.util.Date;
 import java.util.UUID;
 
 public class PhoneRequest {
-    private UUID phoneId;
 
     private UUID commonDetailProduct;
 
@@ -15,21 +14,12 @@ public class PhoneRequest {
 
     private String phone_type;
 
-    private String phone_name;
 
     private boolean is_show;
 
     private Date created_at = new Date();
 
     private Date updated_at = new Date();
-
-    public UUID getPhoneId() {
-        return phoneId;
-    }
-
-    public void setPhoneId(UUID phoneId) {
-        this.phoneId = phoneId;
-    }
 
     public UUID getCommonDetailProduct() {
         return commonDetailProduct;
@@ -55,14 +45,6 @@ public class PhoneRequest {
         this.phone_type = phone_type;
     }
 
-    public String getPhone_name() {
-        return phone_name;
-    }
-
-    public void setPhone_name(String phone_name) {
-        this.phone_name = phone_name;
-    }
-
     public boolean isIs_show() {
         return is_show;
     }
@@ -85,5 +67,17 @@ public class PhoneRequest {
 
     public void setUpdated_at(Date updated_at) {
         this.updated_at = updated_at;
+    }
+
+    @Override
+    public String toString() {
+        return "PhoneRequest{" +
+                ", commonDetailProduct=" + commonDetailProduct +
+                ", operating_system='" + operating_system + '\'' +
+                ", phone_type='" + phone_type + '\'' +
+                ", is_show=" + is_show +
+                ", created_at=" + created_at +
+                ", updated_at=" + updated_at +
+                '}';
     }
 }

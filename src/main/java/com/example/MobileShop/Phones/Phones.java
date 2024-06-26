@@ -1,8 +1,11 @@
 package com.example.MobileShop.Phones;
 
 import com.example.MobileShop.CommonDetailProduct.CommonDetailProduct;
+import com.example.MobileShop.PhoneVariable.PhoneVariable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Table(name = "Phones")
@@ -16,14 +19,16 @@ public class Phones {
     @JoinColumn(name = "common_detail_product_id")
     private CommonDetailProduct commonDetailProduct;
 
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL,mappedBy = "phone")
+    private List<PhoneVariable> phoneVariables;
+
+
     @Column(name = "operating_system")
     private String operating_system;
 
     @Column(name = "phone_type")
     private String phone_type;
-
-    @Column(name = "phone_name")
-    private String phone_name;
 
     @Column(name = "is_show")
     private boolean is_show;
@@ -67,14 +72,6 @@ public class Phones {
         this.phone_type = phone_type;
     }
 
-    public String getPhone_name() {
-        return phone_name;
-    }
-
-    public void setPhone_name(String phone_name) {
-        this.phone_name = phone_name;
-    }
-
     public boolean isIs_show() {
         return is_show;
     }
@@ -97,5 +94,27 @@ public class Phones {
 
     public void setUpdated_at(Date updated_at) {
         this.updated_at = updated_at;
+    }
+
+    public List<PhoneVariable> getPhoneVariables() {
+        return phoneVariables;
+    }
+
+    public void setPhoneVariables(List<PhoneVariable> phoneVariables) {
+        this.phoneVariables = phoneVariables;
+    }
+
+    @Override
+    public String toString() {
+        return "Phones{" +
+                "phoneId=" + phoneId +
+                ", commonDetailProduct=" + commonDetailProduct +
+                ", phoneVariables=" + phoneVariables +
+                ", operating_system='" + operating_system + '\'' +
+                ", phone_type='" + phone_type + '\'' +
+                ", is_show=" + is_show +
+                ", created_at=" + created_at +
+                ", updated_at=" + updated_at +
+                '}';
     }
 }
