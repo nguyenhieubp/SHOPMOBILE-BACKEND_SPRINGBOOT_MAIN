@@ -1,40 +1,28 @@
-package com.example.MobileShop.Phones;
+package com.example.MobileShop.Phones.Request;
 
 import com.example.MobileShop.CommonDetailProduct.CommonDetailProduct;
 import jakarta.persistence.*;
+
 import java.util.Date;
 import java.util.UUID;
 
-@Table(name = "Phones")
-@Entity
-public class Phones {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class PhoneRequest {
     private UUID phoneId;
 
-    @OneToOne
-    @JoinColumn(name = "common_detail_product_id")
-    private CommonDetailProduct commonDetailProduct;
+    private UUID commonDetailProduct;
 
-    @Column(name = "operating_system")
     private String operating_system;
 
-    @Column(name = "phone_type")
     private String phone_type;
 
-    @Column(name = "phone_name")
     private String phone_name;
 
-    @Column(name = "is_show")
     private boolean is_show;
 
-    @Column(name = "created_at")
-    private Date created_at;
+    private Date created_at = new Date();
 
-    @Column(name = "updated_at")
-    private Date updated_at;
+    private Date updated_at = new Date();
 
-    // Getters and setters
     public UUID getPhoneId() {
         return phoneId;
     }
@@ -43,11 +31,11 @@ public class Phones {
         this.phoneId = phoneId;
     }
 
-    public CommonDetailProduct getCommonDetailProduct() {
+    public UUID getCommonDetailProduct() {
         return commonDetailProduct;
     }
 
-    public void setCommonDetailProduct(CommonDetailProduct commonDetailProduct) {
+    public void setCommonDetailProduct(UUID commonDetailProduct) {
         this.commonDetailProduct = commonDetailProduct;
     }
 

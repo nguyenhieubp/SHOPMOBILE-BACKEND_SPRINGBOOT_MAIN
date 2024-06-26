@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 public class MobileShopApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(MobileShopApplication.class, args);
 	}

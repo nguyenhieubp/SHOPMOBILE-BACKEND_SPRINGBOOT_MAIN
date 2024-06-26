@@ -5,6 +5,7 @@ import com.example.MobileShop.Categories.Categories;
 import com.example.MobileShop.Categories.CategoriesRepository;
 import com.example.MobileShop.CommonDetailProduct.Request.CommonDetailProductRequest;
 import com.example.MobileShop.CommonDetailProduct.Response.CommonDetailProductResponse;
+import com.example.MobileShop.CommonDetailProduct.Response.CommonDetailProductResponseWrapper;
 import com.example.MobileShop.Exception.ResourceNotFoundException;
 import com.example.MobileShop.Images.ImageRepository;
 import com.example.MobileShop.Images.Images;
@@ -40,9 +41,10 @@ public class CommonDetailProductService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public List<CommonDetailProductResponse> getAllCommonDetailProducts() {
-        List<CommonDetailProduct> commonDetailProducts = commonDetailProductRepository.findAll();
-        return mapToResponseList(commonDetailProducts);
+    public CommonDetailProductResponseWrapper getAllCommonDetailProducts() {
+        List<CommonDetailProductResponse> products = mapToResponseList(commonDetailProductRepository.findAll());
+        long count = products.size();
+        return new CommonDetailProductResponseWrapper(count, products);
     }
 
     public CommonDetailProductResponse getCommonDetailProductById(UUID itemId) {
