@@ -2,13 +2,17 @@ package com.example.MobileShop.Phones;
 
 import com.example.MobileShop.CommonDetailProduct.CommonDetailProduct;
 import com.example.MobileShop.CommonDetailProduct.CommonDetailProductRepository;
+import com.example.MobileShop.Phones.Request.SetShowPhoneRequest;
 import com.example.MobileShop.Exception.ResourceNotFoundException;
 import com.example.MobileShop.Phones.Request.PhoneRequest;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -30,10 +34,12 @@ public class PhoneService {
         return phoneRepository.save(phones);
     }
 
-    public List<Phones> getAllPhone(){
-        List<Phones> phones = phoneRepository.findAll();
-        return phones;
+    public Page<Phones> getAllPhones(String title, int page, int size, String sortBy) {
+        Sort sort = Sort.by(Sort.Direction.fromString(sortBy), "commonDetailProduct.price");
+        Pageable pageable = PageRequest.of(page, size,sort);
+        return phoneRepository.findAllPhones(title, pageable);
     }
+
 
 
     public Phones getPhoneById(UUID id){
@@ -60,4 +66,14 @@ public class PhoneService {
         return phoneRepository.save(existingPhone);
     }
 
+
+
+    public Phones setIsShow(UUID id, SetShowPhoneRequest setShow) {
+        Phones phone = phoneRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Phone ID not found: " + id));
+
+        phone.setIs_show(setShow.isSetShow());
+        phoneRepository.save(phone);
+        return phone;
+    }
 }

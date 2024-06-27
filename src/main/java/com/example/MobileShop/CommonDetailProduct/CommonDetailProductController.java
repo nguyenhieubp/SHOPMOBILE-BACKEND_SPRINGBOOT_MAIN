@@ -1,5 +1,6 @@
 package com.example.MobileShop.CommonDetailProduct;
 
+import com.example.MobileShop.CommonDetailProduct.Request.ChangeQuantityOfGoods;
 import com.example.MobileShop.CommonDetailProduct.Request.CommonDetailProductRequest;
 import com.example.MobileShop.CommonDetailProduct.Response.CommonDetailProductResponse;
 import com.example.MobileShop.CommonDetailProduct.Response.CommonDetailProductResponseWrapper;
@@ -65,7 +66,19 @@ public class CommonDetailProductController {
 
 
     @GetMapping("/getForMobile")
-    public List<CommonDetailProductResponse> getAll (){
-
+    public List<CommonDetailProductResponse> getAllForMobile (){
+       return commonDetailProductService.getForMobile();
     }
+
+
+    @GetMapping("/getAllProductSub")
+    public List<CommonDetailProductResponse> getAllProductSub(){
+        return commonDetailProductService.getAllProductSub();
+    }
+
+    @PatchMapping("/change-quantity-of-goods/{id}")
+    public Object changeQuantityOfGoods(@PathVariable UUID id,@RequestBody ChangeQuantityOfGoods changeQuantityOfGoods){
+        return commonDetailProductService.changeQuantityOfGoods(id,changeQuantityOfGoods);
+    }
+
 }

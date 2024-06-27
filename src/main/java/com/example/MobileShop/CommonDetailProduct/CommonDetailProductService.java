@@ -3,22 +3,20 @@ package com.example.MobileShop.CommonDetailProduct;
 
 import com.example.MobileShop.Categories.Categories;
 import com.example.MobileShop.Categories.CategoriesRepository;
+import com.example.MobileShop.CommonDetailProduct.Request.ChangeQuantityOfGoods;
 import com.example.MobileShop.CommonDetailProduct.Request.CommonDetailProductRequest;
 import com.example.MobileShop.CommonDetailProduct.Response.CommonDetailProductResponse;
 import com.example.MobileShop.CommonDetailProduct.Response.CommonDetailProductResponseWrapper;
 import com.example.MobileShop.Exception.ResourceNotFoundException;
 import com.example.MobileShop.Images.ImageRepository;
 import com.example.MobileShop.Images.Images;
-import com.example.MobileShop.ProductSub.Request.ProductSubDto;
 import com.example.MobileShop.ProductType.ProductType;
 import com.example.MobileShop.ProductType.ProductTypeRepository;
-import com.google.common.reflect.TypeToken;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Type;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -135,4 +133,35 @@ public class CommonDetailProductService {
         Sort sort = Sort.by(Sort.Direction.fromString(sortDirection), "price");
         return mapToResponseList((commonDetailProductRepository.searchProducts(sort,category, type)));
     }
+
+
+    public List<CommonDetailProductResponse> getForMobile() {
+        List<CommonDetailProduct> commonDetailProductResponses = commonDetailProductRepository.findProductsWithNonEmptySubs();
+        return  mapToResponseList(commonDetailProductResponses);
+    }
+
+
+    public List<CommonDetailProductResponse> getAllProductSub() {
+        List<CommonDetailProduct> commonDetailProductResponses = commonDetailProductRepository.findProductsSub();
+        return  mapToResponseList(commonDetailProductResponses);
+    }
+
+
+    public Object changeQuantityOfGoods(UUID id,ChangeQuantityOfGoods changeQuantityOfGoods) {
+        CommonDetailProduct commonDetailProduct =  findCommonDetailProductById(id);
+        if(changeQuantityOfGoods.getCalc().equals("increment")){
+            commonDetailProduct.setQuantity_of_goods(commonDetailProduct.getQuantity_of_goods() + changeQuantityOfGoods.getQuantity());
+        }
+        else if(changeQuantityOfGoods.getCalc().equals("decrement")){
+            if(commonDetailProduct.getQuantity_of_goods() - changeQuantityOfGoods.getQuantity() < 0){
+                return "Không đủ sản phẩm";
+            }
+            commonDetailProduct.setQuantity_of_goods(commonDetailProduct.getQuantity_of_goods() - changeQuantityOfGoods.getQuantity());
+        }
+
+        CommonDetailProduct commonDetail = commonDetailProductRepository.save(commonDetailProduct);
+        return modelMapper.map(commonDetail,CommonDetailProductResponse.class);
+    }
+
+
 }

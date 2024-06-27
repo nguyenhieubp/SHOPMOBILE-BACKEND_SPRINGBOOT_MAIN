@@ -1,11 +1,11 @@
 package com.example.MobileShop.Phones;
 
-import com.example.MobileShop.CommonDetailProduct.CommonDetailProduct;
+import com.example.MobileShop.Phones.Request.SetShowPhoneRequest;
 import com.example.MobileShop.Phones.Request.PhoneRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -21,8 +21,17 @@ public class PhoneController {
 
 
     @GetMapping("/getAll")
-    public  List<Phones> getAllPhone(){
-        return phoneService.getAllPhone();
+    public Page<Phones> getAllPhones(
+            @RequestParam(required = false) String title ,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(required = false) String sortBy
+    ) {
+        String sortDirection = "ASC";
+        if (sortBy != null && !sortBy.isEmpty()) {
+            sortDirection = sortBy.equalsIgnoreCase("desc") ? "DESC" : "ASC";
+        }
+        return phoneService.getAllPhones(title, page, size, sortDirection);
     }
 
 
@@ -41,5 +50,11 @@ public class PhoneController {
     public Phones updatePhone(@PathVariable UUID id,@RequestBody PhoneRequest phone){
         return phoneService.updatePhone(id,phone);
     }
+
+    @PatchMapping("/setIsShow/{id}")
+    public Phones setIsShow(@PathVariable UUID id,@RequestBody SetShowPhoneRequest setShow){
+        return phoneService.setIsShow(id,setShow);
+    }
+
 
 }

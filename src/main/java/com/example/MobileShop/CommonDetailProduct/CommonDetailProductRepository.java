@@ -23,4 +23,10 @@ public interface CommonDetailProductRepository extends JpaRepository<CommonDetai
             @Param("category") String category,
             @Param("type") String type);
 
+
+    @Query("SELECT p FROM CommonDetailProduct p WHERE SIZE(p.subs) = 0")
+    List<CommonDetailProduct> findProductsWithNonEmptySubs();
+
+    @Query("SELECT p FROM CommonDetailProduct p WHERE SIZE(p.subs) > 0")
+    List<CommonDetailProduct> findProductsSub();
 }

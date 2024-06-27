@@ -5,6 +5,7 @@ import com.example.MobileShop.Roles.RoleRepository;
 import com.example.MobileShop.Roles.Roles;
 import com.example.MobileShop.User.User;
 import com.example.MobileShop.User.UserRepository;
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -44,11 +45,11 @@ public class UserRoleService {
         return userRoleRepository.save(userRole);
     }
 
-    public boolean deleteRoleForUser(UUID id){
-        UserRoles userRoles = userRoleRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("UserRole not found with id " + id));
-        userRoleRepository.delete(userRoles);
-        return true;
+    @Transactional
+    public boolean deleteRoleForUser(UUID userId, RoleCode roleCode) {
+        System.out.println("ROLE "+roleCode.getRoleCode());
+        int deletedCount = userRoleRepository.deleteRoleUser(userId, roleCode.getRoleCode());
+        return deletedCount > 0;
     }
 
     public List<UserRoles> getAllRoleUser(){

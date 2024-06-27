@@ -25,8 +25,8 @@ public class UserRoleController {
 
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteRoleUser(@PathVariable UUID id){
-        boolean isDelete = userRoleService.deleteRoleForUser(id);
+    public ResponseEntity<?> deleteRoleUser(@PathVariable UUID id,@RequestBody RoleCode roleCode){
+        boolean isDelete = userRoleService.deleteRoleForUser(id,roleCode);
         ApiResponse<Boolean> response = new ApiResponse<>(HttpStatus.OK.value(), "success",isDelete);
         return ResponseEntity.ok().body(response);
     }
