@@ -14,7 +14,7 @@ import com.example.MobileShop.ProductType.ProductType;
 import com.example.MobileShop.ProductType.ProductTypeRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,9 +39,11 @@ public class CommonDetailProductService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public CommonDetailProductResponseWrapper getAllCommonDetailProducts() {
-        List<CommonDetailProductResponse> products = mapToResponseList(commonDetailProductRepository.findAll());
-        long count = products.size();
+    public CommonDetailProductResponseWrapper getAllCommonDetailProducts(Integer pageNo,Integer pageSize) {
+        Pageable paging = PageRequest.of(pageNo, pageSize);
+        Page<CommonDetailProduct> listCommonDetail = commonDetailProductRepository.findAll(paging);
+        Page<CommonDetailProductResponse> products = mapToResponsePage(listCommonDetail);
+        long count = products.stream().count();
         return new CommonDetailProductResponseWrapper(count, products);
     }
 
@@ -127,6 +129,13 @@ public class CommonDetailProductService {
         return products.stream()
                 .map(product -> modelMapper.map(product, CommonDetailProductResponse.class))
                 .collect(Collectors.toList());
+    }
+
+    private Page<CommonDetailProductResponse> mapToResponsePage(Page<CommonDetailProduct> products) {
+        List<CommonDetailProductResponse> responseList = products.stream()
+                .map(product -> modelMapper.map(product, CommonDetailProductResponse.class))
+                .collect(Collectors.toList());
+        return new PageImpl<>(responseList, products.getPageable(), products.getTotalElements());
     }
 
     public List<CommonDetailProductResponse> searchProducts(String category, String type, String sortDirection) {

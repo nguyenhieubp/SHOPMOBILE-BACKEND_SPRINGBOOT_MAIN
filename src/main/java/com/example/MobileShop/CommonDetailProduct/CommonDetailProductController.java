@@ -5,6 +5,7 @@ import com.example.MobileShop.CommonDetailProduct.Request.CommonDetailProductReq
 import com.example.MobileShop.CommonDetailProduct.Response.CommonDetailProductResponse;
 import com.example.MobileShop.CommonDetailProduct.Response.CommonDetailProductResponseWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -18,8 +19,11 @@ public class CommonDetailProductController {
 
     // Lấy danh sách tất cả sản phẩm chi tiết thông chung
     @GetMapping("/all")
-    public ResponseEntity<CommonDetailProductResponseWrapper> getAllCommonDetailProducts() {
-        CommonDetailProductResponseWrapper products  = commonDetailProductService.getAllCommonDetailProducts();
+    public ResponseEntity<CommonDetailProductResponseWrapper> getAllCommonDetailProducts(
+            @RequestParam(defaultValue = "0") Integer pageNo,
+            @RequestParam(defaultValue = "10") Integer pageSize
+    ) {
+        CommonDetailProductResponseWrapper products  = commonDetailProductService.getAllCommonDetailProducts(pageNo,pageSize);
         return ResponseEntity.ok().body(products);
     }
 

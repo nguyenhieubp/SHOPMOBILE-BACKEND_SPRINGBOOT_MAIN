@@ -1,12 +1,14 @@
 package com.example.MobileShop.CommonDetailProduct.Response;
 
+import org.springframework.data.domain.Page;
+
 import java.util.List;
 
 public class CommonDetailProductResponseWrapper {
     private long count;
-    private List<CommonDetailProductResponse> products;
+    private Page<CommonDetailProductResponse> products;
 
-    public CommonDetailProductResponseWrapper(long count, List<CommonDetailProductResponse> products) {
+    public CommonDetailProductResponseWrapper(long count, Page<CommonDetailProductResponse> products) {
         this.count = count;
         this.products = products;
     }
@@ -19,11 +21,11 @@ public class CommonDetailProductResponseWrapper {
         this.count = count;
     }
 
-    public List<CommonDetailProductResponse> getProducts() {
+    public Page<CommonDetailProductResponse> getProducts() {
         return products;
     }
 
-    public void setProducts(List<CommonDetailProductResponse> products) {
+    public void setProducts(Page<CommonDetailProductResponse> products) {
         this.products = products;
     }
 
