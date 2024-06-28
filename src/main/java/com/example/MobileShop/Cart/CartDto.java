@@ -1,37 +1,28 @@
 package com.example.MobileShop.Cart;
 
 import com.example.MobileShop.User.User;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+
 import java.util.Date;
-import java.util.Set;
 import java.util.UUID;
 
-@Table(name = "Carts")
-@Entity
-public class Cart {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class CartDto {
     private UUID cartId;
 
     private UUID user;
 
-    // add product
-    @Column(name = "product_item_id")
     private UUID product_item_id;
 
-    @Column(name = "quantity")
     private int quantity;
 
-    @Column(name = "price")
     private float price;
 
-    @Column(name = "created_at")
-    private Date created_at =  new Date();
+    private Date created_at = new Date();
 
-    @Column(name = "updated_at")
     private Date updated_at = new Date();
 
-    // Getters and setters
     public UUID getCartId() {
         return cartId;
     }
@@ -90,7 +81,7 @@ public class Cart {
 
     @Override
     public String toString() {
-        return "Cart{" +
+        return "CartDto{" +
                 "cartId=" + cartId +
                 ", user=" + user +
                 ", product_item_id=" + product_item_id +
