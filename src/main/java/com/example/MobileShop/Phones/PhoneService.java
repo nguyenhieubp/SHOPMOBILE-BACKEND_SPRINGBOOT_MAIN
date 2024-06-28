@@ -5,6 +5,7 @@ import com.example.MobileShop.CommonDetailProduct.CommonDetailProductRepository;
 import com.example.MobileShop.Phones.Request.SetShowPhoneRequest;
 import com.example.MobileShop.Exception.ResourceNotFoundException;
 import com.example.MobileShop.Phones.Request.PhoneRequest;
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -47,15 +48,13 @@ public class PhoneService {
         return phones;
     }
 
-
-    public boolean deletePhone(UUID id){
-        Phones phones = phoneRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("not have phone id "+ id));
-        phoneRepository.delete(phones);
-        return true;
+    @Transactional
+    public boolean deletePhone(UUID phoneId) {
+        int deletedCount = phoneRepository.deleteByPhoneId(phoneId);
+        return deletedCount > 0;
     }
 
     public Phones updatePhone(UUID id,PhoneRequest phone){
-        System.out.println("UUUU "+id);
         Phones existingPhone = phoneRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Phone ID not found: " + id));
 

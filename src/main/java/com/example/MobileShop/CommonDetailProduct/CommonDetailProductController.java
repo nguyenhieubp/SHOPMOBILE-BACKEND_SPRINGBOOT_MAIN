@@ -53,8 +53,8 @@ public class CommonDetailProductController {
     // Xóa sản phẩm dựa trên ID
     @DeleteMapping("/{code}")
     public ResponseEntity<?> deleteCommonDetailProduct(@PathVariable double code) {
-        commonDetailProductService.deleteCommonDetailProduct(code);
-        return ResponseEntity.ok("DELETE SUCCESS");
+        boolean isDelete =commonDetailProductService.deleteCommonDetailProduct(code);
+        return ResponseEntity.ok(isDelete);
     }
 
 

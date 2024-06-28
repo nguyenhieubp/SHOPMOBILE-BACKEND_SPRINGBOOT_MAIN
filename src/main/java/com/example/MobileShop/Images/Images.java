@@ -26,6 +26,9 @@ public class Images {
     @OneToOne(mappedBy = "images",cascade = CascadeType.ALL)
     private CommonDetailProduct commonDetailProduct;
 
+    public Images() {
+    }
+
     // Constructors, getters, and setters
     public UUID getImageId() {
         return imageId;

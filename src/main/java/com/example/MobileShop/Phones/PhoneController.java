@@ -40,7 +40,6 @@ public class PhoneController {
         return phoneService.getPhoneById(id);
     }
 
-
     @DeleteMapping("{id}")
     public boolean deletePhone(@PathVariable UUID id){
         return phoneService.deletePhone(id);

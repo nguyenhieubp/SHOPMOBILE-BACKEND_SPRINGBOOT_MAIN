@@ -1,0 +1,74 @@
+package com.example.MobileShop.Phones;
+
+import com.example.MobileShop.CommonDetailProduct.CommonDetailProductDTO;
+
+import java.util.Date;
+import java.util.UUID;
+
+public class PhoneDto {
+    private UUID phoneId;
+    private CommonDetailProductDTO commonDetailProduct;
+    private String operating_system;
+    private String phone_type;
+    private boolean is_show;
+    private Date created_at = new Date();
+    private Date updated_at = new Date();
+
+    // Getters and setters
+
+    public UUID getPhoneId() {
+        return phoneId;
+    }
+
+    public void setPhoneId(UUID phoneId) {
+        this.phoneId = phoneId;
+    }
+
+    public CommonDetailProductDTO getCommonDetailProduct() {
+        return commonDetailProduct;
+    }
+
+    public void setCommonDetailProduct(CommonDetailProductDTO commonDetailProduct) {
+        this.commonDetailProduct = commonDetailProduct;
+    }
+
+    public String getOperating_system() {
+        return operating_system;
+    }
+
+    public void setOperating_system(String operating_system) {
+        this.operating_system = operating_system;
+    }
+
+    public String getPhone_type() {
+        return phone_type;
+    }
+
+    public void setPhone_type(String phone_type) {
+        this.phone_type = phone_type;
+    }
+
+    public boolean isIs_show() {
+        return is_show;
+    }
+
+    public void setIs_show(boolean is_show) {
+        this.is_show = is_show;
+    }
+
+    public Date getCreated_at() {
+        return created_at;
+    }
+
+    public void setCreated_at(Date created_at) {
+        this.created_at = created_at;
+    }
+
+    public Date getUpdated_at() {
+        return updated_at;
+    }
+
+    public void setUpdated_at(Date updated_at) {
+        this.updated_at = updated_at;
+    }
+}

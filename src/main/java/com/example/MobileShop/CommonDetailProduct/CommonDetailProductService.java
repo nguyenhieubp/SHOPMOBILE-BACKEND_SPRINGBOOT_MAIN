@@ -113,8 +113,16 @@ public class CommonDetailProductService {
 
     public boolean deleteCommonDetailProduct(double itemId) {
         try {
-            commonDetailProductRepository.deleteCommonDetail(itemId);
-            return true; // Xóa thành công
+            int rowsAffected = commonDetailProductRepository.deleteCommonDetail(itemId);
+            if (rowsAffected == 0) {
+                // Không hiển thị thông báo hoặc xử lý khi không có bản ghi nào bị xóa
+                System.out.println("No records deleted.");
+                return false;
+            } else {
+                // Xử lý nếu cần thiết khi có bản ghi bị xóa
+                System.out.println(rowsAffected + " record(s) deleted.");
+                return true;
+            }
         } catch (Exception e) {
             return false; // Xóa thất bại
         }

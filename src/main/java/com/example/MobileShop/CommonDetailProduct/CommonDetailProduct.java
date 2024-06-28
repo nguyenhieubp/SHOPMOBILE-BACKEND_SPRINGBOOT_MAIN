@@ -46,9 +46,6 @@ public class CommonDetailProduct {
     @Column(name = "updated_at")
     private Date updated_at;
 
-    @JsonIgnore
-    @OneToOne(mappedBy = "commonDetailProduct", cascade = CascadeType.ALL)
-    private PhoneVariable phoneVariable;
 
     @JsonIgnore
     @OneToOne(mappedBy = "commonDetailProduct", cascade = CascadeType.ALL)
@@ -71,6 +68,12 @@ public class CommonDetailProduct {
 
     @OneToMany(mappedBy = "commonDetailProduct", cascade = CascadeType.ALL)
     private List<ProductSub> subs;
+
+
+    public CommonDetailProduct() {
+    }
+
+
 
     // Getters and setters
     public UUID getCommonProductId() {
@@ -154,13 +157,6 @@ public class CommonDetailProduct {
         this.updated_at = updated_at;
     }
 
-    public PhoneVariable getPhoneVariable() {
-        return phoneVariable;
-    }
-
-    public void setPhoneVariable(PhoneVariable phoneVariable) {
-        this.phoneVariable = phoneVariable;
-    }
 
     public Images getImages() {
         return images;
@@ -202,6 +198,14 @@ public class CommonDetailProduct {
         this.subs = subs;
     }
 
+    public double getCode() {
+        return code;
+    }
+
+    public void setCode(double code) {
+        this.code = code;
+    }
+
     @Override
     public String toString() {
         return "CommonDetailProduct{" +
@@ -211,9 +215,9 @@ public class CommonDetailProduct {
                 ", description='" + description + '\'' +
                 ", quantity_of_goods=" + quantity_of_goods +
                 ", warranty=" + warranty +
+                ", code=" + code +
                 ", created_at=" + created_at +
                 ", updated_at=" + updated_at +
-                ", phoneVariable=" + phoneVariable +
                 ", phones=" + phones +
                 ", reviews=" + reviews +
                 ", images=" + images +

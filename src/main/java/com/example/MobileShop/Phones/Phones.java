@@ -19,10 +19,6 @@ public class Phones {
     @JoinColumn(name = "common_detail_product_id")
     private CommonDetailProduct commonDetailProduct;
 
-    @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL,mappedBy = "phone")
-    private List<PhoneVariable> phoneVariables;
-
 
     @Column(name = "operating_system")
     private String operating_system;
@@ -38,6 +34,9 @@ public class Phones {
 
     @Column(name = "updated_at")
     private Date updated_at;
+
+    public Phones() {
+    }
 
     // Getters and setters
     public UUID getPhoneId() {
@@ -96,20 +95,12 @@ public class Phones {
         this.updated_at = updated_at;
     }
 
-    public List<PhoneVariable> getPhoneVariables() {
-        return phoneVariables;
-    }
-
-    public void setPhoneVariables(List<PhoneVariable> phoneVariables) {
-        this.phoneVariables = phoneVariables;
-    }
 
     @Override
     public String toString() {
         return "Phones{" +
                 "phoneId=" + phoneId +
                 ", commonDetailProduct=" + commonDetailProduct +
-                ", phoneVariables=" + phoneVariables +
                 ", operating_system='" + operating_system + '\'' +
                 ", phone_type='" + phone_type + '\'' +
                 ", is_show=" + is_show +

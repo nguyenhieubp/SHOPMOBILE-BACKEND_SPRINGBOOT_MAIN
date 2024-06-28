@@ -1,60 +1,43 @@
 package com.example.MobileShop.PhoneVariable;
 
 import com.example.MobileShop.CommonDetailProduct.CommonDetailProduct;
+import com.example.MobileShop.CommonDetailProduct.CommonDetailProductDTO;
 import com.example.MobileShop.Phones.Phones;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+
 import java.util.Date;
 import java.util.UUID;
 
-@Table(name = "PhoneVariable")
-@Entity
-public class PhoneVariable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class PhoneVariableDTO {
     private UUID phoneVariableId;
 
-    @Column(name = "common_product_id")
     private UUID commonDetailProduct;
 
-    @Column(name = "phone_main_id")
     private UUID phone;
 
-    @Column(name = "color")
     private String color;
 
-    @Column(name = "ram")
     private String ram;
 
-    @Column(name = "rom")
     private String rom;
 
-    @Column(name = "disk")
     private String disk;
 
-    @Column(name = "internal_storage")
     private String internal_storage;
 
-    @Column(name = "release_date")
     private String release_date;
 
-    @Column(name = "battery_capacity")
     private double battery_capacity;
 
-    @Column(name = "camera")
     private String camera;
 
-
-    @Column(name = "is_show")
     private boolean is_show;
 
-    @Column(name = "created_at")
-    private Date created_at;
+    private Date created_at = new Date();
 
-    @Column(name = "updated_at")
-    private Date updated_at;
+    private Date updated_at = new Date();
 
-    // Getters and setters
     public UUID getPhoneVariableId() {
         return phoneVariableId;
     }
@@ -63,6 +46,21 @@ public class PhoneVariable {
         this.phoneVariableId = phoneVariableId;
     }
 
+    public UUID getCommonDetailProduct() {
+        return commonDetailProduct;
+    }
+
+    public void setCommonDetailProduct(UUID commonDetailProduct) {
+        this.commonDetailProduct = commonDetailProduct;
+    }
+
+    public UUID getPhone() {
+        return phone;
+    }
+
+    public void setPhone(UUID phone) {
+        this.phone = phone;
+    }
 
     public String getColor() {
         return color;
@@ -82,22 +80,6 @@ public class PhoneVariable {
 
     public String getRom() {
         return rom;
-    }
-
-    public UUID getCommonDetailProduct() {
-        return commonDetailProduct;
-    }
-
-    public void setCommonDetailProduct(UUID commonDetailProduct) {
-        this.commonDetailProduct = commonDetailProduct;
-    }
-
-    public UUID getPhone() {
-        return phone;
-    }
-
-    public void setPhone(UUID phone) {
-        this.phone = phone;
     }
 
     public void setRom(String rom) {
@@ -171,7 +153,7 @@ public class PhoneVariable {
 
     @Override
     public String toString() {
-        return "PhoneVariable{" +
+        return "PhoneVariableDTO{" +
                 "phoneVariableId=" + phoneVariableId +
                 ", commonDetailProduct=" + commonDetailProduct +
                 ", phone=" + phone +
