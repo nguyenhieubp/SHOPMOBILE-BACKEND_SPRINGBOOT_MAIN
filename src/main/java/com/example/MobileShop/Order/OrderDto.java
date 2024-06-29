@@ -3,34 +3,22 @@ package com.example.MobileShop.Order;
 import com.example.MobileShop.OrderDetail.OrderDetail;
 import com.example.MobileShop.User.User;
 import jakarta.persistence.*;
+
 import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
 
-@Entity
-@Table(name = "orders")
-public class Order {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class OrderDto {
     private UUID orderId;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    private UUID user;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<OrderDetail> orderDetails;
-
-    @Column(name = "order_date")
     private Date order_date = new Date();
 
-    @Column(name = "status")
-    private boolean status;
+    private boolean status = false;
 
-    @Column(name = "address_id")
     private UUID address_id;
 
-    // Getters and setters
     public UUID getOrderId() {
         return orderId;
     }
@@ -39,20 +27,12 @@ public class Order {
         this.orderId = orderId;
     }
 
-    public User getUser() {
+    public UUID getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(UUID user) {
         this.user = user;
-    }
-
-    public Set<OrderDetail> getOrderDetails() {
-        return orderDetails;
-    }
-
-    public void setOrderDetails(Set<OrderDetail> orderDetails) {
-        this.orderDetails = orderDetails;
     }
 
     public Date getOrder_date() {
@@ -81,10 +61,9 @@ public class Order {
 
     @Override
     public String toString() {
-        return "Order{" +
+        return "OrderDto{" +
                 "orderId=" + orderId +
                 ", user=" + user +
-                ", orderDetails=" + orderDetails +
                 ", order_date=" + order_date +
                 ", status=" + status +
                 ", address_id=" + address_id +

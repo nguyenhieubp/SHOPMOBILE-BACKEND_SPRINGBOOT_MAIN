@@ -1,39 +1,26 @@
 package com.example.MobileShop.OrderDetail;
 
-import com.example.MobileShop.Order.Order;
-import jakarta.persistence.*;
 import java.util.Date;
 import java.util.UUID;
 
-@Table(name = "OrderDetail")
-@Entity
-public class OrderDetail {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class OrderDetailDto {
     private UUID orderDetailId;
 
-    @Column(name = "order_id")
     private UUID order;
 
-    @Column(name = "phone_number")
     private String phone_number;
 
-    @Column(name = "quantity")
     private int quantity;
 
-    @Column(name = "total_price")
     private float total_price;
 
-    @Column(name = "product_item_id")
     private UUID product_item_id;
 
-    @Column(name = "created_at")
     private Date created_at;
 
-    @Column(name = "updated_at")
     private Date updated_at;
 
-    // Getters and setters
+    // Các getters và setters
     public UUID getOrderDetailId() {
         return orderDetailId;
     }
@@ -100,7 +87,7 @@ public class OrderDetail {
 
     @Override
     public String toString() {
-        return "OrderDetail{" +
+        return "OrderDetailDto{" +
                 "orderDetailId=" + orderDetailId +
                 ", order=" + order +
                 ", phone_number='" + phone_number + '\'' +

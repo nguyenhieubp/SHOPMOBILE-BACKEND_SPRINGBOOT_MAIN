@@ -1,40 +1,25 @@
 package com.example.MobileShop.Address;
 
-
-import com.example.MobileShop.User.User;
-import jakarta.persistence.*;
-
 import java.util.Date;
 import java.util.UUID;
 
-@Table(name = "Address")
-@Entity
-public class Address {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class AddressDto {
     private UUID addressId;
 
     private UUID user;
 
-    @Column(name = "city")
     private String city;
 
-    @Column(name = "district")
     private String district;
 
-    @Column(name = "wards")
     private String wards;
 
-    @Column(name = "address")
     private String address;
 
-    @Column(name = "created_at")
     private Date created_at = new Date();
 
-    @Column(name = "updated_at")
     private Date updated_at = new Date();
 
-    // Getters and setters
     public UUID getAddressId() {
         return addressId;
     }
@@ -97,19 +82,5 @@ public class Address {
 
     public void setUpdated_at(Date updated_at) {
         this.updated_at = updated_at;
-    }
-
-    @Override
-    public String toString() {
-        return "Address{" +
-                "addressId=" + addressId +
-                ", user=" + user +
-                ", city='" + city + '\'' +
-                ", district='" + district + '\'' +
-                ", wards='" + wards + '\'' +
-                ", address='" + address + '\'' +
-                ", created_at=" + created_at +
-                ", updated_at=" + updated_at +
-                '}';
     }
 }
